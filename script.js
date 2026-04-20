@@ -29,16 +29,6 @@ function buildLegend() {
  
 function buildChart(DATA) {
   var chart = document.getElementById('chart');
-  DATA.forEach(function(row) {
-    var sep = row.outcomes.find(function(o) { return o.name === 'Separation'; });
-    var res = row.outcomes.find(function(o) { return o.name === 'Resignation'; });
-    if (sep) {
-      if (res) { res.count += sep.count; }
-      else { row.outcomes.push({ name: 'Resignation', count: sep.count }); }
-      row.outcomes = row.outcomes.filter(function(o) { return o.name !== 'Separation'; });
-    }
-  });
-
   DATA.forEach(function(row, ri) {
     var barRow = document.createElement('div');
     barRow.className = 'bar-row';
@@ -52,7 +42,6 @@ function buildChart(DATA) {
     // Stacked bar
     var track = document.createElement('div');
     track.className = 'stacked-track';
-
  
     var sorted = row.outcomes.slice().sort(function(a, b) { return b.count - a.count; });
  
@@ -81,7 +70,7 @@ function buildChart(DATA) {
         var pctRound = Math.round(pct);
         tooltip.innerHTML = '<span class="tt-outcome">' + outcome.name + '</span>'
           + '<span class="tt-detail">' + outcome.count + ' of ' + row.totalOutcomes + ' outcomes (' + pctRound + '%)</span><br>'
-          + '<span class="tt-detail">' + row.label + ' \u2014 ' + row.hearings + ' officers</span>';
+          + '<span class="tt-detail">' + row.label + ' \u2014 ' + row.hearings + ' hearings</span>';
         tooltip.classList.add('visible');
       });
       seg.addEventListener('mousemove', function(e) {
