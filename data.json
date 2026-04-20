@@ -1,0 +1,196 @@
+[
+  {
+    "label": "1st hearing",
+    "hearings": 1001,
+    "totalOutcomes": 1257,
+    "outcomes": [
+      {
+        "name": "Written Reprimand",
+        "count": 222
+      },
+      {
+        "name": "Termination",
+        "count": 59
+      },
+      {
+        "name": "Charge Dropped",
+        "count": 234
+      },
+      {
+        "name": "Resignation",
+        "count": 69
+      },
+      {
+        "name": "Suspension",
+        "count": 389
+      },
+      {
+        "name": "Reinstruction",
+        "count": 249
+      },
+      {
+        "name": "Reimbursement",
+        "count": 27
+      },
+      {
+        "name": "Warning",
+        "count": 4
+      },
+      {
+        "name": "Demotion",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "label": "2nd hearing",
+    "hearings": 384,
+    "totalOutcomes": 469,
+    "outcomes": [
+      {
+        "name": "Demotion",
+        "count": 1
+      },
+      {
+        "name": "Written Reprimand",
+        "count": 66
+      },
+      {
+        "name": "Suspension",
+        "count": 191
+      },
+      {
+        "name": "Charge Dropped",
+        "count": 100
+      },
+      {
+        "name": "Reinstruction",
+        "count": 94
+      },
+      {
+        "name": "Resignation",
+        "count": 5
+      },
+      {
+        "name": "Termination",
+        "count": 6
+      },
+      {
+        "name": "Reimbursement",
+        "count": 6
+      }
+    ]
+  },
+  {
+    "label": "3rd hearing",
+    "hearings": 142,
+    "totalOutcomes": 187,
+    "outcomes": [
+      {
+        "name": "Suspension",
+        "count": 79
+      },
+      {
+        "name": "Reinstruction",
+        "count": 45
+      },
+      {
+        "name": "Charge Dropped",
+        "count": 38
+      },
+      {
+        "name": "Written Reprimand",
+        "count": 17
+      },
+      {
+        "name": "Reimbursement",
+        "count": 7
+      },
+      {
+        "name": "Resignation",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "label": "4th hearing",
+    "hearings": 70,
+    "totalOutcomes": 89,
+    "outcomes": [
+      {
+        "name": "Reinstruction",
+        "count": 16
+      },
+      {
+        "name": "Reimbursement",
+        "count": 3
+      },
+      {
+        "name": "Suspension",
+        "count": 51
+      },
+      {
+        "name": "Resignation",
+        "count": 1
+      },
+      {
+        "name": "Charge Dropped",
+        "count": 14
+      },
+      {
+        "name": "Written Reprimand",
+        "count": 3
+      },
+      {
+        "name": "Demotion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "label": "5th hearing",
+    "hearings": 26,
+    "totalOutcomes": 34,
+    "outcomes": [
+      {
+        "name": "Suspension",
+        "count": 14
+      },
+      {
+        "name": "Written Reprimand",
+        "count": 5
+      },
+      {
+        "name": "Charge Dropped",
+        "count": 4
+      },
+      {
+        "name": "Reinstruction",
+        "count": 10
+      },
+      {
+        "name": "Demotion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "label": "6th+ hearing",
+    "hearings": 16,
+    "totalOutcomes": 20,
+    "outcomes": [
+      {
+        "name": "Suspension",
+        "count": 11
+      },
+      {
+        "name": "Charge Dropped",
+        "count": 4
+      },
+      {
+        "name": "Reinstruction",
+        "count": 5
+      }
+    ]
+  }
+]
