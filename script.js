@@ -3,7 +3,7 @@ var OUTCOME_COLORS = {
   "Reinstruction": "#B8960A",
   "Charge Dropped": "#619484",
   "Written Reprimand": "#4DB3B3",
-  "Reimbursement": "#8B7355",
+  "Required to Reimburse": "#8B7355",
   "Termination": "#D64D4D",
   "Demotion": "#6A4FC7",
   "Resignation": "#F4C913",
@@ -12,7 +12,7 @@ var OUTCOME_COLORS = {
  
 var OUTCOME_ORDER = [
   "Suspension", "Reinstruction", "Charge Dropped", "Written Reprimand",
-  "Reimbursement", "Termination", "Demotion", "Resignation", "Warning"
+  "Required to Reimburse", "Termination", "Demotion", "Resignation", "Warning"
 ];
  
 var tooltip = document.getElementById('tooltip');
