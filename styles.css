@@ -1,7 +1,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
  
 body {
-  background: #f4f0e6;
+  background: transparent;
   font-family: 'Roboto Condensed', 'Arial Narrow', sans-serif;
   display: flex;
   align-items: flex-start;
@@ -18,6 +18,7 @@ body {
   border-top: none;
   overflow: hidden;
 }
+
  
 .viz-container::before {
   content: '';
@@ -31,8 +32,10 @@ body {
   padding: 16px 24px 14px;
   border-bottom: 1px solid #404F54;
 }
- 
+
 .viz-kicker {
+  font-family: 'Gotham', 'Gotham Medium', sans-serif;
+  font-weight: 500;
   font-size: 12px;
   color: #404F54;
   opacity: 0.65;
@@ -42,6 +45,7 @@ body {
 }
  
 .viz-title {
+  font-family: 'Roboto Condensed', 'Arial Narrow', sans-serif;
   font-size: 22px;
   font-weight: 700;
   color: #404F54;
@@ -50,7 +54,9 @@ body {
 }
  
 .viz-subtitle {
+  font-family: 'Inter', Arial, sans-serif;
   font-size: 14px;
+  font-weight: 400;
   color: #404F54;
   opacity: 0.72;
   line-height: 1.5;
@@ -61,14 +67,17 @@ body {
   padding: 14px 24px 0;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 4px 14px;
 }
  
 .legend-item {
   display: flex;
+  font-family: 'Inter', Arial, sans-serif;
   align-items: center;
   gap: 5px;
-  font-size: 11.5px;
+  font-size: 13px;
+  font-weight: 500;
   color: #404F54;
   white-space: nowrap;
 }
@@ -90,6 +99,7 @@ body {
 }
  
 .bar-row-label {
+   font-family: 'Inter', Arial, sans-serif;
   font-size: 13px;
   font-weight: 600;
   color: #404F54;
@@ -100,8 +110,9 @@ body {
 }
  
 .bar-row-label .hearing-count {
-  font-weight: 400;
-  font-size: 11.5px;
+  
+  font-weight: 450;
+  font-size: 12px;
   opacity: 0.55;
 }
  
@@ -130,8 +141,9 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
+  font-family: 'Inter', Arial, sans-serif;
   transform: translate(-50%, -50%);
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 600;
   color: #fff;
   pointer-events: none;
@@ -145,7 +157,7 @@ body {
   pointer-events: none;
   background: #404F54;
   color: #fff;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
   font-size: 12px;
   line-height: 1.5;
   padding: 10px 14px;
@@ -161,21 +173,22 @@ body {
  
 .tooltip .tt-outcome {
   font-weight: 700;
-  font-size: 13px;
+  font-size: 14px;
   display: block;
   margin-bottom: 1px;
-  font-family: 'Merriweather', serif;
+  font-family: 'Inter', Arial, sans-serif;
   font-style: italic;
 }
  
 .tooltip .tt-detail {
-  font-size: 11.5px;
+  font-size: 12px;
   opacity: 0.8;
 }
  
 /* Note */
 .viz-note {
-  font-size: 11px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 12px;
   color: #404F54;
   opacity: 0.55;
   padding: 8px 24px 14px;

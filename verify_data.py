@@ -1,21 +1,50 @@
-import csv, json
+import csv, json, re
 from collections import defaultdict
 from datetime import datetime
 
+WORD_TO_NUM = {
+    'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
+    'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10,
+    'eleven': 11, 'twelve': 12, 'thirteen': 13, 'fourteen': 14,
+    'fifteen': 15, 'sixteen': 16, 'seventeen': 17, 'eighteen': 18,
+    'nineteen': 19, 'twenty': 20, 'twenty-five': 25, 'thirty': 30,
+    'forty': 40, 'fifty': 50
+}
+
+def extract_suspension_days(text):
+    # Pattern 1: (N) workday — safe; historical dates have slashes, never produce (N) before "day"
+    m = re.search(r'\((\d+)\)\s*(?:work\s*)?day', text, re.IGNORECASE)
+    if m:
+        return int(m.group(1))
+    # Pattern 2: anchored to "received a/an" to avoid matching prior discipline history
+    # \s+ handles newlines between "received a" and the day count
+    for word in re.findall(
+        r'receive[d]?\s+(?:a|an)\s+[^.]*?(\w+)[-–—\s]\s*(?:work\s*)?day',
+        text, re.IGNORECASE
+    ):
+        word = word.lower()
+        if word.isdigit():
+            return int(word)
+        val = WORD_TO_NUM.get(word)
+        if val:
+            return val
+    return None
+
+def suspension_category(text):
+    days = extract_suspension_days(text)
+    if days is None:
+        return None
+    return 'Long Suspension' if days > 7 else 'Short Suspension'
+
 CATEGORY_MAP = {
-    'suspension': 'Suspension',
     'non-disciplinary letter of reinstruction': 'Reinstruction',
     'reinstruction': 'Reinstruction',
     'dismissal': 'Charge Dropped',
     'written reprimand': 'Written Reprimand',
-    'reimbursement': 'Reimbursement',
     'separation': 'Resignation',
     'resignation': 'Resignation',
     'termination': 'Termination',
     'demotion': 'Demotion',
-    'written warning': 'Warning',
-    'verbal warning': 'Warning',
-    'warning': 'Warning',
 }
 
 def parse_date(s):
@@ -26,7 +55,7 @@ def parse_date(s):
 
 officer_hearings = defaultdict(list)
 skipped = 0
-with open('cpd_data.csv') as f:
+with open('cpd_data.csv', encoding='utf-8-sig') as f:
     for row in csv.DictReader(f):
         officer = row['Officer'].strip()
         if not officer:
@@ -34,7 +63,11 @@ with open('cpd_data.csv') as f:
             continue
         date = parse_date(row['Hearing Date'])
         decisions = [d.strip().lower() for d in row['Decision type'].split(',') if d.strip()]
-        officer_hearings[officer].append({'date': date, 'decisions': decisions})
+        officer_hearings[officer].append({
+            'date': date,
+            'decisions': decisions,
+            'text': row['Charge & Discipline Decision']
+        })
 
 print(f"Skipped {skipped} rows with blank officer name\n")
 
@@ -58,7 +91,10 @@ for officer, hearings in officer_hearings.items():
         num = min(i + 1, 6)
         bucket_instances[num] += 1
         for decision in h['decisions']:
-            cat = CATEGORY_MAP.get(decision)
+            if decision == 'suspension':
+                cat = suspension_category(h['text'])
+            else:
+                cat = CATEGORY_MAP.get(decision)
             if cat:
                 bucket_outcomes[num][cat] += 1
 

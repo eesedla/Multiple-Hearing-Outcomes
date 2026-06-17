@@ -1,28 +1,42 @@
 var OUTCOME_COLORS = {
-  "Suspension": "#004D66",
-  "Reinstruction": "#B8960A",
-  "Charge Dropped": "#619484",
-  "Written Reprimand": "#4DB3B3",
-  "Required to Reimburse": "#8B7355",
   "Termination": "#D64D4D",
+  "Resignation": "#f4c913",
   "Demotion": "#6A4FC7",
-  "Resignation": "#F4C913",
-  "Warning": "#C45B8A"
+  "Long Suspension": "#23685b",
+  "Short Suspension": "#5aa898",
+  "Charge Dropped": "#d0d64c",
+  "Written Reprimand": "#a9d2cf",
+  "Reinstruction": "#e56430"
 };
- 
+
 var OUTCOME_ORDER = [
-  "Suspension", "Reinstruction", "Charge Dropped", "Written Reprimand",
-  "Required to Reimburse", "Termination", "Demotion", "Resignation", "Warning"
+  "Long Suspension", "Short Suspension", "Reinstruction", "Charge Dropped",
+  "Written Reprimand", "Termination", "Demotion", "Resignation"
 ];
- 
+
+var OUTCOME_PHRASES = {
+  "Long Suspension": "received a suspension over 7 days",
+  "Short Suspension": "received a suspension of 7 days or fewer",
+  "Reinstruction": "were given a letter of reinstruction",
+  "Charge Dropped": "had their charges dropped",
+  "Written Reprimand": "were given a written reprimand",
+  "Termination": "were terminated",
+  "Demotion": "were demoted",
+  "Resignation": "resigned"
+};
+
+var OUTCOME_LEGEND_LABELS = {
+  "Long Suspension": "Long Suspension (>7 days)"
+};
+
 var tooltip = document.getElementById('tooltip');
- 
+
 function buildLegend() {
   var legend = document.getElementById('legend');
   OUTCOME_ORDER.forEach(function(name) {
     var item = document.createElement('span');
     item.className = 'legend-item';
-    item.innerHTML = '<span class="legend-swatch" style="background:' + OUTCOME_COLORS[name] + '"></span>' + name;
+    item.innerHTML = '<span class="legend-swatch" style="background:' + OUTCOME_COLORS[name] + '"></span>' + (OUTCOME_LEGEND_LABELS[name] || name);
     legend.appendChild(item);
   });
 }
@@ -47,16 +61,17 @@ function buildChart(DATA) {
  
     sorted.forEach(function(outcome, oi) {
       var pct = outcome.count / row.totalOutcomes * 100;
+      var pctOfOfficers = Math.round(outcome.count / row.hearings * 100);
       var seg = document.createElement('div');
       seg.className = 'stacked-segment';
       seg.style.width = pct + '%';
       seg.style.background = OUTCOME_COLORS[outcome.name];
- 
+
       // Show percentage label inside segment if wide enough
       if (pct >= 10) {
         var segLabel = document.createElement('span');
         segLabel.className = 'seg-label';
-        segLabel.textContent = Math.round(pct) + '%';
+        segLabel.textContent = pctOfOfficers + '%';
         seg.appendChild(segLabel);
       }
  
@@ -67,10 +82,11 @@ function buildChart(DATA) {
  
       // Tooltip
       seg.addEventListener('mouseenter', function(e) {
-        var pctRound = Math.round(pct);
-        tooltip.innerHTML = '<span class="tt-outcome">' + outcome.name + '</span>'
-          + '<span class="tt-detail">' + outcome.count + ' of ' + row.totalOutcomes + ' outcomes (' + pctRound + '%)</span><br>'
-          + '<span class="tt-detail">' + row.label + ' \u2014 ' + row.hearings + ' hearings</span>';
+        var pctRound = pctOfOfficers;
+        var phrase = OUTCOME_PHRASES[outcome.name] || outcome.name.toLowerCase();
+        var officerWord = outcome.count === 1 ? 'officer' : 'officers';
+        var conjugated = outcome.count === 1 ? phrase.replace(/\bwere\b/, 'was') : phrase;
+        tooltip.innerHTML = '<span class="tt-detail">' + outcome.count + ' of ' + row.hearings + ' total officers (' + pctRound + '%) ' + conjugated + ' during their ' + row.label + '</span>';
         tooltip.classList.add('visible');
       });
       seg.addEventListener('mousemove', function(e) {
